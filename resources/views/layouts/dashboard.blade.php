@@ -32,6 +32,9 @@
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{ asset('front/assets/vendor/fonts/boxicons.css') }}" />
 
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('front/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('front/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
@@ -39,14 +42,10 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('front/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
     <link rel="stylesheet" href="{{ asset('front/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="{{ asset('front/assets/vendor/js/helpers.js') }}"></script>
-
     <script src="{{ asset('front/assets/js/config.js') }}"></script>
 </head>
 
