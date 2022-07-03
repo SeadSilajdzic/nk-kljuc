@@ -5,13 +5,13 @@
         <span class="text-muted fw-light">
             <a href="{{ route('dashboard.index') }}">Početna</a> /
         </span>
-        <a href="{{ route('dashboard.user.index') }}">Korisnici</a>
+        <a href="{{ route('dashboard.user.archived') }}">Arhivirani korisnici</a>
     </h4>
 
     @include('partials.alerts')
 
     <div class="card">
-        <h5 class="card-header">Lista korisnika ({{ $usersCount }})</h5>
+        <h5 class="card-header">Lista korisnika</h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -66,13 +66,20 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('dashboard.user.edit', $user) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> Uredi</a>
-                                        <form action="{{ route('dashboard.user.destroy', $user) }}" method="post">
+                                        <form action="{{ route('dashboard.user.restore', $user) }}" method="post">
+                                            @csrf
+                                            <button name="btn_archieve" class="dropdown-item"><i
+                                                    class="bx bx-recycle me-1"></i>Vrati
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('dashboard.user.forceDelete', $user) }}"
+                                              onclick="return confirm('Da li si siguran da želiš trajno obrisati korisnika?')"
+                                              method="post">
                                             @csrf
                                             @method('delete')
                                             <button name="btn_archieve" class="dropdown-item"><i
-                                                    class="bx bx-trash me-1"></i>Arhiviraj</button>
+                                                    class="bx bx-x-circle me-1"></i>Obriši
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

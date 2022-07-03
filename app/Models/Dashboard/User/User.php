@@ -55,14 +55,48 @@ class User extends Authenticatable
     ];
 
     // Helper functions
-    public static function usersWithPosts() {
-        return User::with(['posts' => function($query) {
-            $query->select('title');
-        }])->withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
+    public static function getUsers() {
+        return User::withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
     }
 
-    public static function getMembersOnly() {
+    public static function getUsersCount() {
+        return User::withoutTrashed()->select(['id'])->count();
+    }
+
+    public static function getMembers() {
         return User::where('isMember', 1)->withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
+    }
+
+    public static function getMembersCount() {
+        return User::where('isMember', 1)->withoutTrashed()->select(['id'])->count();
+    }
+
+    public static function updateData($user, $data) {
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'isAdmin' => $data['isAdmin'],
+            'isMember' => $data['isMember'],
+            'status' => $data['status'],
+            'phone' => $data['phone'],
+        ]);
+
+        if(isset($data['password'])) {
+            $user->update([
+                'password' => bcrypt($data['password'])
+            ]);
+        }
+    }
+
+    public static function storeData($data) {
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'isAdmin' => $data['isAdmin'],
+            'isMember' => $data['isMember'],
+            'status' => $data['status'],
+        ]);
     }
 
     // Constants

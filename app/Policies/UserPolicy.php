@@ -22,26 +22,18 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
-     *
-     * @param User $user
-     * @param User $model
-     * @return void
-     */
-    public function view(User $user, User $model)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @param User $user
-     * @return void
+     * @return bool
      */
     public function create(User $user)
     {
-        //
+        if ($user->isAdmin) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -53,9 +45,11 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if($user->isAdmin || $user->id === $model->id) {
+        if ($user->isAdmin || $user->id === $model->id) {
             return true;
         }
+
+        return false;
     }
 
     /**
@@ -63,11 +57,15 @@ class UserPolicy
      *
      * @param User $user
      * @param User $model
-     * @return void
+     * @return bool
      */
     public function delete(User $user, User $model)
     {
-        //
+        if ($user->isAdmin && ($model->id !== 1 || $model->id !== $user->id)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -75,11 +73,15 @@ class UserPolicy
      *
      * @param User $user
      * @param User $model
-     * @return void
+     * @return bool
      */
     public function restore(User $user, User $model)
     {
-        //
+        if($user->isAdmin && ($model->id !== $user->id || $model->id !== 1) ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -87,10 +89,43 @@ class UserPolicy
      *
      * @param User $user
      * @param User $model
-     * @return void
+     * @return bool
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        if ($user->isAdmin && ($model->id !== 1 || $model->id !== $user->id)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can check the list of the members.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function checkMembers(User $user)
+    {
+        if ($user->isAdmin) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can check the list archived users.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function archived(User $user) {
+        if($user->isAdmin) {
+            return true;
+        }
+
+        return false;
     }
 }

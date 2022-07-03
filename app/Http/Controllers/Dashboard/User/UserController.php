@@ -21,9 +21,28 @@ class UserController extends Controller
     {
         $currentUser = auth()->user();
         $this->authorize('viewAny', $currentUser);
-        $users = User::usersWithPosts();
+        $users = User::getUsers();
+        $usersCount = User::getUsersCount();
         return view('dashboard.users.index', [
             'users' => $users,
+            'usersCount' => $usersCount
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     * @throws AuthorizationException
+     */
+    public function checkMembers() {
+        $currentUser = auth()->user();
+        $this->authorize('checkMembers', $currentUser);
+        $members = User::getMembers();
+        $membersCount = User::getMembersCount();
+        return view('dashboard.users.members', [
+            'members' => $members,
+            'membersCount' => $membersCount
         ]);
     }
 
@@ -51,17 +70,9 @@ class UserController extends Controller
     {
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return void
-     */
-    public function show(User $user)
-    {
-        //
+        $data = $request->validated();
+        User::storeData($data);
+        return redirect()->route('dashboard.user.index')->with('success', 'Korisnik uspješno dodan');
     }
 
     /**
@@ -90,24 +101,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->authorize('update', $user);
-
         $data = $request->validated();
-
-        $user->update([
-           'name' => $data['name'],
-           'email' => $data['email'],
-           'isAdmin' => $data['isAdmin'],
-           'isMember' => $data['isMember'],
-           'status' => $data['status'],
-           'phone' => $data['phone'],
-        ]);
-
-        if(isset($data['password'])) {
-            $user->update([
-                'password' => bcrypt($data['password'])
-            ]);
-        }
-
+        User::updateData($user, $data);
         return redirect()->route('dashboard.user.index')->with('success', 'Korisnik uspješno ažuriran');
     }
 
@@ -116,9 +111,55 @@ class UserController extends Controller
      *
      * @param User $user
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('delete', $user);
+        $user->delete();
+        return redirect()->back()->with('warning', 'Korisnik, zajedno sa svojim podacima, je uspješno arhiviran');
+    }
+
+    /**
+     * Check the list of the archived users.
+     *
+     * @return void
+     * @throws AuthorizationException
+     */
+    public function archived() {
+        $currentUser = auth()->user();
+        $this->authorize('archived', $currentUser);
+        $users = User::onlyTrashed()->select(['id', 'name', 'email', 'isAdmin', 'isMember', 'status'])->paginate(15);
+        return view('dashboard.users.archived', [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * Restore archived user.
+     *
+     * @param $id
+     * @return void
+     * @throws AuthorizationException
+     */
+    public function restore($id) {
+        $user = User::withTrashed()->where('id', $id)->first();
+        $this->authorize('restore', $user);
+        $user->restore();
+        return redirect()->back()->with('info', 'Korisnik, zajedno sa svojim podacima, uspješno vraćen');
+    }
+
+    /**
+     * Permanently delete archived user.
+     *
+     * @param $id
+     * @return void
+     * @throws AuthorizationException
+     */
+    public function forceDelete($id) {
+        $user = User::withTrashed()->where('id', $id)->first();
+        $this->authorize('forceDelete', $user);
+        $user->forceDelete();
+        return redirect()->back()->with('danger', 'Korisnik je, zajedno sa svojim podacima, trajno obrisan');
     }
 }

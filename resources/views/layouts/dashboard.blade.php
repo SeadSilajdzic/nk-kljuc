@@ -145,17 +145,17 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="layouts-without-menu.html" class="menu-link">
+                            <a href="{{ route('dashboard.user.members') }}" class="menu-link">
                                 <div data-i18n="lista-clanova">Lista članova</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="layouts-without-menu.html" class="menu-link">
+                            <a href="{{ route('dashboard.user.create') }}" class="menu-link">
                                 <div data-i18n="dodaj-novog-korisnika">Dodaj novog korisnika</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="layouts-without-menu.html" class="menu-link">
+                            <a href="{{ route('dashboard.user.archived') }}" class="menu-link">
                                 <div data-i18n="arhivirani-korisnici">Arhivirani korisnici</div>
                             </a>
                         </li>
