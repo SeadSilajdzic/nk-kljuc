@@ -24,7 +24,9 @@ class User extends Authenticatable
         'email',
         'password',
         'isAdmin',
-        'isMember'
+        'isMember',
+        'status',
+        'phone'
     ];
 
     protected $dates = [
@@ -52,6 +54,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Helper functions
+    public static function usersWithPosts() {
+        return User::with(['posts' => function($query) {
+            $query->select('title');
+        }])->withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
+    }
+
+    public static function getMembersOnly() {
+        return User::where('isMember', 1)->withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
+    }
+
+    // Constants
+    public const VALIDATION_RULES = [
+        'name' => 'required|string|min:3',
+        'email' => 'required|string|email',
+        'phone' => 'nullable|string',
+        'isAdmin' => 'required|boolean',
+        'isMember' => 'required|boolean',
+        'status' => 'required|integer',
+    ];
+
+
+    // Relationships
     public function posts() {
         return $this->hasMany(Post::class);
     }
