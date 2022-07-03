@@ -9,7 +9,6 @@
             <a href="{{ route('dashboard.user.index') }}">Korisnici</a> /
         </span>
         <a href="{{ route('dashboard.user.create') }}">Dodaj korisnika</a>
-
     </h4>
 
     <div class="col-xxl">
@@ -24,8 +23,9 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="name">Ime</label>
                         <div class="col-sm-10">
-                            <input type="text" value="{{ old('name') }}" class="form-control" name="name"
+                            <input type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" name="name"
                                    id="name" placeholder="John Doe">
+                            @error('name') <spam class="text-danger">{{ $message }}</spam>  @enderror
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -33,10 +33,11 @@
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                                 <input type="email" value="{{ old('email') }}" name="email" id="email"
-                                       class="form-control" placeholder="john.doe" aria-label="john.doe"
+                                       class="form-control @error('email') is-invalid @enderror" placeholder="john.doe" aria-label="john.doe"
                                        aria-describedby="basic-default-email2">
                                 <span class="input-group-text" id="basic-default-email2">primjer@primjer.com</span>
                             </div>
+                            @error('email') <spam class="text-danger">{{ $message }}</spam>  @enderror
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -72,13 +73,16 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="password">Lozinka</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
+                            @error('password') <spam class="text-danger">{{ $message }}</spam>  @enderror
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="password_confirmation">Potvrdi lozinku</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
+                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
+                                   id="password_confirmation">
+                            @error('password_confirmation') <spam class="text-danger">{{ $message }}</spam>  @enderror
                         </div>
                     </div>
                     <div class="row justify-content-end">
@@ -90,4 +94,6 @@
             </div>
         </div>
     </div>
+
+    @include('partials.errors')
 @endsection
