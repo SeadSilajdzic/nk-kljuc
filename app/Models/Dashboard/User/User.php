@@ -91,6 +91,10 @@ class User extends Authenticatable
         ]);
     }
 
+    public static function returnAdmins() {
+        return User::where('isAdmin', 1)->select(['id', 'name'])->get();
+    }
+
     // Constants
     public const VALIDATION_RULES = [
         'name' => 'required|string|min:3',
