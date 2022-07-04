@@ -162,6 +162,36 @@
                     </ul>
                 </li>
 
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <div data-i18n="Blog">Blog</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('dashboard.post.index') }}" class="menu-link">
+                                <div data-i18n="objave">Objave</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ route('dashboard.post.create') }}" class="menu-link">
+                                <div data-i18n="dodaj-novu-objavu">Dodaj novu objavu</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ route('dashboard.post.archived') }}" class="menu-link">
+                                <div data-i18n="arhivirane-objave">Arhivirane objave</div>
+                            </a>
+                        </li>
+{{--                        <li class="menu-item">--}}
+{{--                            <a href="{{ route('dashboard.user.archived') }}" class="menu-link">--}}
+{{--                                <div data-i18n="arhivirani-korisnici">Arhivirani korisnici</div>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+                    </ul>
+                </li>
+
             </ul>
         </aside>
         <!-- / Menu -->

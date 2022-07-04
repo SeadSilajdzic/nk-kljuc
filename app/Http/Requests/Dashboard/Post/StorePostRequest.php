@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dashboard\Post;
 
+use App\Models\Dashboard\Post\Post;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -13,7 +14,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,6 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return Post::VALIDATION_RULES;
     }
 }

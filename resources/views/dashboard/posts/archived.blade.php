@@ -56,13 +56,18 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('dashboard.post.edit', $post) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> Uredi</a>
-                                        <form action="{{ route('dashboard.post.destroy', $post) }}" method="post">
+                                        <form action="{{ route('dashboard.post.restore', $post) }}" method="post">
+                                            @csrf
+                                            <button class="dropdown-item"><i class="bx bx-recycle me-1"></i>Vrati
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('dashboard.post.forceDelete', $post) }}" method="post"
+                                              onclick="return confirm('Da li si siguran da želiš trajno obrisati objavu?')">
                                             @csrf
                                             @method('delete')
                                             <button name="btn_archieve" class="dropdown-item"><i
-                                                    class="bx bx-trash me-1"></i>Arhiviraj</button>
+                                                    class="bx bx-trash me-1"></i>Obriši
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
