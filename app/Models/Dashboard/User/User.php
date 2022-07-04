@@ -59,16 +59,8 @@ class User extends Authenticatable
         return User::withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
     }
 
-    public static function getUsersCount() {
-        return User::withoutTrashed()->select(['id'])->count();
-    }
-
     public static function getMembers() {
         return User::where('isMember', 1)->withoutTrashed()->select(['id', 'name', 'email', 'status', 'isAdmin', 'isMember'])->paginate(15);
-    }
-
-    public static function getMembersCount() {
-        return User::where('isMember', 1)->withoutTrashed()->select(['id'])->count();
     }
 
     public static function updateData($user, $data) {

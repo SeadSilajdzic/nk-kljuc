@@ -22,10 +22,8 @@ class UserController extends Controller
         $currentUser = auth()->user();
         $this->authorize('viewAny', $currentUser);
         $users = User::getUsers();
-        $usersCount = User::getUsersCount();
         return view('dashboard.users.index', [
             'users' => $users,
-            'usersCount' => $usersCount
         ]);
     }
 
@@ -39,10 +37,8 @@ class UserController extends Controller
         $currentUser = auth()->user();
         $this->authorize('checkMembers', $currentUser);
         $members = User::getMembers();
-        $membersCount = User::getMembersCount();
         return view('dashboard.users.members', [
             'members' => $members,
-            'membersCount' => $membersCount
         ]);
     }
 

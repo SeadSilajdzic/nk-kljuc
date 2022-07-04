@@ -11,7 +11,7 @@
     @include('partials.alerts')
 
     <div class="card">
-        <h5 class="card-header">Lista korisnika ({{ $usersCount }})</h5>
+        <h5 class="card-header">Lista korisnika ({{ $users->total() }})</h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
