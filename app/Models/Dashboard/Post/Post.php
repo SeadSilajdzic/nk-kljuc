@@ -2,6 +2,7 @@
 
 namespace App\Models\Dashboard\Post;
 
+use App\Models\Dashboard\Tag\Tag;
 use App\Models\Dashboard\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,12 +43,16 @@ class Post extends Model
     ];
 
     public static function getPosts() {
-        return Post::with(['user' => function($query) {
+        return Post::select(['id', 'title', 'status', 'user_id'])->with(['user' => function($query) {
             $query->select(['id', 'name']);
-        }])->orderBy('id', 'desc')->paginate(15);
+        }])->withCount('tags')->orderBy('id', 'desc')->paginate(15);
     }
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
     }
 }

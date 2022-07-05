@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Post\Post;
 use App\Http\Requests\Dashboard\Post\StorePostRequest;
 use App\Http\Requests\Dashboard\Post\UpdatePostRequest;
+use App\Models\Dashboard\Tag\Tag;
 use App\Models\Dashboard\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
@@ -40,8 +41,10 @@ class PostController extends Controller
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
         $users = User::returnAdmins();
+        $tags = Tag::select(['id', 'name'])->get();
         return view('dashboard.posts.create', [
-            'users' => $users
+            'users' => $users,
+            'tags' => $tags
         ]);
     }
 
@@ -58,7 +61,7 @@ class PostController extends Controller
         $this->authorize('create', $currentUser);
         $data = $request->validated();
 
-        Post::create([
+        $post = Post::create([
             'user_id' => $data['user_id'],
             'title' => $data['title'],
             'short_description' => $data['short_description'],
@@ -69,6 +72,10 @@ class PostController extends Controller
             'subtitle' => $data['subtitle'],
             'status' => $data['status'],
         ]);
+
+        if($request->tags) {
+            $post->tags()->sync($request->tags);
+        }
 
         return redirect()->route('dashboard.post.index')->with('success', 'Objava uspješno kreirana');
     }
@@ -85,9 +92,11 @@ class PostController extends Controller
         $currentUser = auth()->user();
         $this->authorize('update', $currentUser);
         $users = User::returnAdmins();
+        $tags = Tag::select(['id', 'name'])->get();
         return view('dashboard.posts.edit', [
             'post' => $post,
-            'users' => $users
+            'users' => $users,
+            'tags' => $tags
         ]);
     }
 
@@ -117,6 +126,10 @@ class PostController extends Controller
             'status' => $data['status'],
         ]);
 
+        if($request->tags) {
+            $post->tags()->sync($request->tags);
+        }
+
         return redirect()->route('dashboard.post.index')->with('success', 'Objava uspješno ažurirana');
     }
 
@@ -129,8 +142,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $currentUser = auth()->user();
-        $this->authorize('delete', $currentUser);
+        $this->authorize('delete', $post);
         $post->delete();
         return redirect()->route('dashboard.post.index')->with('warning', 'Objava uspješno arhivirana');
     }
@@ -162,9 +174,8 @@ class PostController extends Controller
      */
     public function restore($id)
     {
-        $currentUser = auth()->user();
-        $this->authorize('restore', $currentUser);
         $post = Post::withTrashed()->findOrFail($id);
+        $this->authorize('restore', $post);
         $post->restore();
         return redirect()->back()->with('info', 'Objava uspješno vraćena');
     }
@@ -178,9 +189,8 @@ class PostController extends Controller
      */
     public function forceDelete($id)
     {
-        $currentUser = auth()->user();
-        $this->authorize('forceDelete', $currentUser);
         $post = Post::withTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $post);
         $post->forceDelete();
         return redirect()->back()->with('danger', 'Objava trajno obrisana');
     }
