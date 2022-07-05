@@ -184,11 +184,11 @@
                                 <div data-i18n="arhivirane-objave">Arhivirane objave</div>
                             </a>
                         </li>
-{{--                        <li class="menu-item">--}}
-{{--                            <a href="{{ route('dashboard.user.archived') }}" class="menu-link">--}}
-{{--                                <div data-i18n="arhivirani-korisnici">Arhivirani korisnici</div>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li class="menu-item">
+                            <a href="{{ route('dashboard.tag.index') }}" class="menu-link">
+                                <div data-i18n="tagovi">Tagovi</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

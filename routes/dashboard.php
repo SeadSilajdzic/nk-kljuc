@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Post\PostController;
+use App\Http\Controllers\Dashboard\Tag\TagController;
 use App\Http\Controllers\Dashboard\User\UserController;
 
 Route::middleware('auth')->group(function() {
@@ -21,5 +22,8 @@ Route::middleware('auth')->group(function() {
         Route::delete('/post/{id}/forceDelete', [PostController::class, 'forceDelete'])->name('post.forceDelete');
         Route::post('/post/{id}/restore', [PostController::class, 'restore'])->name('post.restore');
         Route::resource('/post', PostController::class)->except('show');
+
+        // Tags routes
+        Route::resource('/tag', TagController::class)->except(['create', 'show']);
     });
 });
