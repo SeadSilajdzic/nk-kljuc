@@ -1,0 +1,63 @@
+.ss-hero {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-left: $ilp;
+
+    @media screen and (max-width: 1200px) {
+        padding-left: 0;
+    }
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .ss-hero-info {
+        width: 55%;
+        height: 55%;
+        position: absolute;
+        bottom: 5%;
+        z-index: 2;
+        left: calc(70px + 5%);
+        padding: 1rem 2rem;
+
+        .ss-info-date {
+            h4 {
+                @include font(15px, 400, $light);
+                margin: 0;
+            }
+        }
+
+        h3 {
+            @include font(20px, 400, $light, 27px);
+        }
+
+        h1 {
+            @include font(55px, 700, $light, 60px);
+        }
+
+        p {
+            @include font(16px, 400, $light, 22px);
+        }
+
+        .ss-info-divider {
+            width: 100%;
+            height: 1px;
+            background: $light;
+        }
+    }
+
+    .ss-hero-overlay {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($primary, .6);
+        z-index: 1;
+        pointer-events: none;
+    }
+}

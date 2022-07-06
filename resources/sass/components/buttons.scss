@@ -1,0 +1,63 @@
+.ss-btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: .3px;
+
+    &--outline {
+        border: 1px solid $light;
+        background: transparent;
+
+        &-dark {
+            color: $dark;
+
+            &:hover,
+            &:visited {
+                color: $dark;
+            }
+        }
+
+        &-light {
+            color: $light;
+
+            &:hover,
+            &:visited {
+                color: $light;
+            }
+        }
+    }
+
+    &--flat {
+        &-dark {
+            background: $dark;
+            color: $light;
+
+            &:hover,
+            &:visited {
+                color: $light;
+            }
+        }
+
+        &-light {
+            background: $light;
+            color: $dark;
+
+            &:hover,
+            &:visited {
+                color: $dark;
+            }
+        }
+
+        &-primary {
+            background: $primary;
+            color: $light;
+
+            &:hover,
+            &:visited {
+                color: $light;
+            }
+        }
+    }
+}

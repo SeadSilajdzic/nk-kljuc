@@ -1,7 +1,13 @@
-// Body
-$body-bg: #f8fafc;
+// Colors
+$primary: #51afe3;
+$primary-lighten-25: lighten($primary, 25%);
+$primary-lighten-50: lighten($primary, 50%);
+$primary-lighten-75: lighten($primary, 75%);
+$primary-darken-25: darken($primary, 25%);
+$primary-darken-50: darken($primary, 50%);
+$primary-darken-75: darken($primary, 75%);
+$light: #fff;
+$dark: #000;
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+// Helper
+$ilp: 70px;
