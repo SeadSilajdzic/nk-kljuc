@@ -6,6 +6,11 @@
     font-size: 18px;
     letter-spacing: .3px;
 
+    @media screen and (max-width: 992px) {
+        padding: .5rem 1rem;
+        font-size: 14px;
+    }
+
     &--outline {
         border: 1px solid $light;
         background: transparent;
