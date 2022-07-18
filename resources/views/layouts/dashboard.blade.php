@@ -189,6 +189,11 @@
                                 <div data-i18n="tagovi">Tagovi</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{ route('dashboard.category.index') }}" class="menu-link">
+                                <div data-i18n="kategorije">Kategorije</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

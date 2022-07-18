@@ -78,10 +78,10 @@
 
 <main>
     <section class="ss-hero">
-        <img src="{{ asset($latest_post->image) }}" alt="Slika">
+        <img src="{{ asset($latest_post->image) }}" alt="Slika: {{ $latest_post->title }}">
         <div class="ss-hero-info">
             <div class="ss-info-date d-flex justify-content-between align-items-center">
-                <h4>7.6.2022 | Sport</h4>
+                <h4>{{ $latest_post->created_at->format('d.m.Y') }} | Sport</h4>
                 <h4>Kom. 0</h4>
             </div>
             <div class="ss-info-divider my-2"></div>

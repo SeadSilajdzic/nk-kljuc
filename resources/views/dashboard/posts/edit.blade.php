@@ -86,8 +86,8 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="status">Status</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-1 col-form-label" for="status">Status</label>
+                        <div class="col-sm-3">
                             <select name="status" id="status"
                                     class="form-control @error('status') is-invalid @enderror">
                                 <option value="0" @if($post->status == 0) selected @endif>Neaktivno</option>
@@ -97,8 +97,8 @@
                             <spam class="text-danger">{{ $message }}</spam> @enderror
                         </div>
 
-                        <label class="col-sm-2 col-form-label" for="user_id">Autor</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-1 col-form-label" for="user_id">Autor</label>
+                        <div class="col-sm-3">
                             <select name="user_id" id="user_id"
                                     class="form-control @error('user_id') is-invalid @enderror">
                                 @foreach($users as $user)
@@ -106,6 +106,18 @@
                                 @endforeach
                             </select>
                             @error('user_id')
+                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                        </div>
+
+                        <label class="col-sm-1 col-form-label" for="category_id">Kategorija</label>
+                        <div class="col-sm-3">
+                            <select name="category_id" id="category_id"
+                                    class="form-control @error('category_id') is-invalid @enderror">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" @if($category->id === $post->category_id) selected @endif>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
                             <spam class="text-danger">{{ $message }}</spam> @enderror
                         </div>
                     </div>

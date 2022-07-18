@@ -17,6 +17,7 @@ class PostFactory extends Factory
         $title = $this->faker->sentence(7);
         return [
             'user_id' => rand(1, 3),
+            'category_id' => rand(1, 5),
             'title' => $title,
             'slug' => Str::slug($title),
             'subtitle' => $this->faker->sentence(12),

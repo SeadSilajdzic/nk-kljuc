@@ -17,9 +17,9 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Br.</th>
                         <th>Naslov</th>
                         <th>Autor</th>
+                        <th>Kategorija</th>
                         <th>Status</th>
                         <th>Tagovi</th>
                         <th>Akcije</th>
@@ -29,16 +29,13 @@
                     @foreach($posts as $post)
                         <tr>
                             <td>
-                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                <strong>
-                                    {{ $post->id }}
-                                </strong>
-                            </td>
-                            <td>
                                 {{ $post->title }}
                             </td>
                             <td>
                                 {{ $post->user->name }}
+                            </td>
+                            <td>
+                                {{ $post->category->name }}
                             </td>
                             <td>
                                 <span

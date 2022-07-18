@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Category\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Post\PostController;
 use App\Http\Controllers\Dashboard\Tag\TagController;
@@ -25,5 +26,8 @@ Route::middleware('auth')->group(function() {
 
         // Tags routes
         Route::resource('/tag', TagController::class)->except(['create', 'show']);
+
+        // Categories routes
+        Route::resource('/category', CategoryController::class)->except(['create', 'show']);
     });
 });

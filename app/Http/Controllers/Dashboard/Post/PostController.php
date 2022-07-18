@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Dashboard\Post;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Post\PostRequest;
+use App\Models\Dashboard\Category\Category;
 use App\Models\Dashboard\Post\Post;
-use App\Http\Requests\Dashboard\Post\StorePostRequest;
-use App\Http\Requests\Dashboard\Post\UpdatePostRequest;
 use App\Models\Dashboard\Tag\Tag;
 use App\Models\Dashboard\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -43,9 +42,11 @@ class PostController extends Controller
         $this->authorize('create', $currentUser);
         $users = User::returnAdmins();
         $tags = Tag::select(['id', 'name'])->get();
+        $categories = Category::select(['id', 'name'])->get();
         return view('dashboard.posts.create', [
             'users' => $users,
-            'tags' => $tags
+            'tags' => $tags,
+            'categories' => $categories
         ]);
     }
 
@@ -60,26 +61,7 @@ class PostController extends Controller
     {
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
-        $data = $request->validated();
-
-        $file = $data['image'];
-        $filename = time() . $file->getClientOriginalName();
-        $file->storeAs('public/posts/', $filename);
-
-        $post = Post::create([
-            'user_id' => $data['user_id'],
-            'title' => $data['title'],
-            'short_description' => $data['short_description'],
-            'description' => $data['description'],
-            'image' => 'storage/posts/' . $filename,
-            'slug' => Str::slug($data['title']),
-            'subtitle' => $data['subtitle'],
-            'status' => $data['status'],
-        ]);
-
-        if($request->tags) {
-            $post->tags()->sync($request->tags);
-        }
+        Post::storeData($request);
 
         return redirect()->route('dashboard.post.index')->with('success', 'Objava uspješno kreirana');
     }
@@ -97,10 +79,12 @@ class PostController extends Controller
         $this->authorize('update', $currentUser);
         $users = User::returnAdmins();
         $tags = Tag::select(['id', 'name'])->get();
+        $categories = Category::select(['id', 'name'])->get();
         return view('dashboard.posts.edit', [
             'post' => $post,
             'users' => $users,
-            'tags' => $tags
+            'tags' => $tags,
+            'categories' => $categories
         ]);
     }
 
@@ -120,17 +104,17 @@ class PostController extends Controller
 
         $post->update([
             'user_id' => $data['user_id'],
+            'category_id' => $data['category_id'],
             'title' => $data['title'],
             'short_description' => $data['short_description'],
             'description' => $data['description'],
-//            'image' => $data[''],
+//            'image' => $data[''], //TODO update image
 //            'images' => $data[''],
             'slug' => Str::slug($data['title']),
             'subtitle' => $data['subtitle'],
             'status' => $data['status'],
         ]);
 
-        // TODO check if $data['tags'] === $request->tags
         if($request->tags) {
             $post->tags()->sync($request->tags);
         }
