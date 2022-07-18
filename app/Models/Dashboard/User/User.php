@@ -103,6 +103,7 @@ class User extends Authenticatable
         'isAdmin' => 'required|boolean',
         'isMember' => 'required|boolean',
         'status' => 'required|integer',
+        'password' => 'required|confirmed|min:6'
     ];
 
 

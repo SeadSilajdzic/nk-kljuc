@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Tag;
+namespace App\Http\Requests\Dashboard\Post;
 
-use App\Models\Dashboard\Tag\Tag;
+use App\Models\Dashboard\Post\Post;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTagRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,10 @@ class UpdateTagRequest extends FormRequest
      */
     public function rules()
     {
-        return Tag::VALIDATION_RULES;
+        $rules = Post::VALIDATION_RULES;
+        if($this->isMethod('PUT')) {
+            $rules['image'] = ['nullable'];
+        }
+        return $rules;
     }
 }

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Tag;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Tag\StoreTagRequest;
-use App\Http\Requests\Dashboard\Tag\UpdateTagRequest;
+use App\Http\Requests\Dashboard\Tag\TagRequest;
 use App\Models\Dashboard\Tag\Tag;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
@@ -30,11 +29,11 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTagRequest $request
+     * @param TagRequest $request
      * @return void
      * @throws AuthorizationException
      */
-    public function store(StoreTagRequest $request)
+    public function store(TagRequest $request)
     {
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
@@ -65,12 +64,12 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateTagRequest $request
+     * @param TagRequest $request
      * @param Tag $tag
      * @return void
      * @throws AuthorizationException
      */
-    public function update(UpdateTagRequest $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
         $this->authorize('update', $tag);
         $data = $request->validated();

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dashboard\Tag;
 use App\Models\Dashboard\Tag\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTagRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

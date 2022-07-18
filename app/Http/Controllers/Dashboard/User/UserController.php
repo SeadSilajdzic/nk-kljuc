@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Dashboard\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\User\StoreUserRequest;
-use App\Http\Requests\Dashboard\User\UpdateUserRequest;
+use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Models\Dashboard\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
@@ -58,11 +57,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param UserRequest $request
      * @return void
      * @throws AuthorizationException
      */
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
@@ -89,12 +88,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateUserRequest $request
+     * @param UserRequest $request
      * @param User $user
      * @return void
      * @throws AuthorizationException
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $this->authorize('update', $user);
         $data = $request->validated();

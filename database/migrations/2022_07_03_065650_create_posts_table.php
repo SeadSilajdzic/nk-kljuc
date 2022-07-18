@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
             $table->text('short_description');
             $table->text('description');
             $table->string('image')->nullable();
-            $table->string('images')->nullable();
+            $table->string('gallery_images')->nullable();
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
