@@ -71,7 +71,7 @@
                         <label class="col-sm-2 col-form-label" for="description">Odaberite tagove</label>
                         <div class="col-sm-10 d-flex flex-wrap">
                             @foreach($tags as $tag)
-                                <div class="form-group">
+                                <div class="form-group m-2">
                                     <input type="checkbox" id="{{ $tag->id }}" value="{{ $tag->id }}" name="tags[]"
                                         @foreach($post->tags as $t)
                                             @if($tag->id == $t->id)

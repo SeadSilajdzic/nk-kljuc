@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Post\PostRequest;
 use App\Models\Dashboard\Post\Post;
 use App\Http\Requests\Dashboard\Post\StorePostRequest;
 use App\Http\Requests\Dashboard\Post\UpdatePostRequest;
@@ -51,23 +52,26 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StorePostRequest $request
+     * @param PostRequest $request
      * @return void
      * @throws AuthorizationException
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
         $currentUser = auth()->user();
         $this->authorize('create', $currentUser);
         $data = $request->validated();
+
+        $file = $data['image'];
+        $filename = time() . $file->getClientOriginalName();
+        $file->storeAs('public/posts/', $filename);
 
         $post = Post::create([
             'user_id' => $data['user_id'],
             'title' => $data['title'],
             'short_description' => $data['short_description'],
             'description' => $data['description'],
-//            'image' => $data[''],
-//            'images' => $data[''],
+            'image' => 'storage/posts/' . $filename,
             'slug' => Str::slug($data['title']),
             'subtitle' => $data['subtitle'],
             'status' => $data['status'],
@@ -103,12 +107,12 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdatePostRequest $request
+     * @param PostRequest $request
      * @param Post $post
      * @return Response
      * @throws AuthorizationException
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         $currentUser = auth()->user();
         $this->authorize('update', $currentUser);
@@ -126,6 +130,7 @@ class PostController extends Controller
             'status' => $data['status'],
         ]);
 
+        // TODO check if $data['tags'] === $request->tags
         if($request->tags) {
             $post->tags()->sync($request->tags);
         }

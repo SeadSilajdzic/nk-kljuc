@@ -67,6 +67,8 @@
             <a href="">Kontakt</a>
         </li>
     </ul>
+
+    <!-- TODO finish logic for hamburger -->
     <div id="ss-hamburger">
         <span></span>
         <span></span>
@@ -76,17 +78,16 @@
 
 <main>
     <section class="ss-hero">
-        <img src="{{ asset('images/default/hero.jpg') }}" alt="Slika">
+        <img src="{{ asset($latest_post->image) }}" alt="Slika">
         <div class="ss-hero-info">
             <div class="ss-info-date d-flex justify-content-between align-items-center">
                 <h4>7.6.2022 | Sport</h4>
                 <h4>Kom. 0</h4>
             </div>
             <div class="ss-info-divider my-2"></div>
-            <h3>Neki moj subtitle</h3>
-            <h1 class="my-3">Glavni naslov na početnoj stranici</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque debitis esse fuga hic, impedit,
-                ipsam libero mollitia nemo nostrum possimus quas reiciendis, vero voluptates.</p>
+            <h3>{{ $latest_post->subtitle }}</h3>
+            <h1 class="my-3">{{ $latest_post->title }}</h1>
+            <p>{{ $latest_post->short_description }}</p>
             <br class="d-none d-md-block">
             <a href="#" class="ss-btn ss-btn--outline ss-btn--outline-light mt-3 ">Opširnije</a>
         </div>

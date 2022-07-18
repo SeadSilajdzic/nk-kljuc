@@ -18,7 +18,7 @@ class Post extends Model
         'short_description',
         'description',
         'image',
-        'images',
+        'gallery_images',
         'slug',
         'subtitle',
         'status',
@@ -30,13 +30,17 @@ class Post extends Model
         'deleted_at'
     ];
 
+    public function getImageAttribute($image) {
+        return asset($image);
+    }
+
     public const VALIDATION_RULES = [
         'user_id' => 'required|integer',
         'title' => 'required|string',
         'short_description' => 'nullable|string',
         'description' => 'required|string',
-        'image' => 'nullable|image',
-        'images' => 'nullable',
+        'image' => 'required|image|mimes:jpg,jpeg,png,svg',
+        'gallery_images' => 'nullable',
         'slug' => 'nullable|string',
         'subtitle' => 'nullable|string',
         'status' => 'required|integer',

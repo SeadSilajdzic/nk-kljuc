@@ -17,7 +17,7 @@
                 <h5 class="mb-0">Dodaj novu objavu</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('dashboard.post.store') }}" method="post">
+                <form action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row mb-3">
@@ -27,7 +27,7 @@
                                    class="form-control @error('title') is-invalid @enderror" name="title"
                                    id="title" placeholder="Nova pobjeda NK Ključ-a...">
                             @error('title')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                                    class="form-control @error('subtitle') is-invalid @enderror" name="subtitle"
                                    id="subtitle" placeholder="NK Ključ je opet iznenadio svoj protivnike...">
                             @error('subtitle')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                                       class="form-control @error('short_description') is-invalid @enderror"
                             >{{ old('short_description') }}</textarea>
                             @error('short_description')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -62,7 +62,18 @@
                                       class="form-control @error('description') is-invalid @enderror"
                             >{{ old('description') }}</textarea>
                             @error('description')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="image">Fotografija</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="file" name="image" id="image" aria-describedby="image" aria-label="Image" class="form-control @error('image') is-invalid @enderror">
+                            </div>
+                            @error('image')
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -70,7 +81,7 @@
                         <label class="col-sm-2 col-form-label" for="description">Odaberite tagove</label>
                         <div class="col-sm-10 d-flex flex-wrap">
                             @foreach($tags as $tag)
-                                <div class="form-group">
+                                <div class="form-group m-2">
                                     <input type="checkbox" id="{{ $tag->id }}" value="{{ $tag->id }}" name="tags[]">
                                     <label for="{{ $tag->id }}">{{ $tag->name }}</label>
                                 </div>
@@ -87,7 +98,7 @@
                                 <option value="1">Aktivno</option>
                             </select>
                             @error('status')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
                         <label class="col-sm-2 col-form-label" for="user_id">Autor</label>
@@ -99,13 +110,13 @@
                                 @endforeach
                             </select>
                             @error('user_id')
-                            <spam class="text-danger">{{ $message }}</spam> @enderror
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="row justify-content-end">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Uredi</button>
+                            <button type="submit" class="btn btn-primary">Spremi</button>
                         </div>
                     </div>
                 </form>
