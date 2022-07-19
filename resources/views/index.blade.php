@@ -39,7 +39,7 @@
     </ul>
 </nav>
 
-<nav class="d-flex align-items-center justify-content-between d-lg-none ss-mob-nav">
+<nav class="d-lg-none ss-mob-nav">
     <img src="{{ asset('images/logo/grb.png') }}" alt="NK Kljuc grb" id="logo" class="d-flex">
     <ul class="ss-mob-nav-items">
         <li>
@@ -68,7 +68,6 @@
         </li>
     </ul>
 
-    <!-- TODO finish logic for hamburger -->
     <div id="ss-hamburger">
         <span></span>
         <span></span>
@@ -99,11 +98,18 @@
     const navigation = document.querySelector('.ss-desk-nav');
     navigation.addEventListener('mouseover', function() {
         navigation.classList.add('ss-nav-expanded');
-    })
+    });
 
     navigation.addEventListener('mouseleave', function() {
         navigation.classList.remove('ss-nav-expanded');
-    })
+    });
+
+    const hamburger = document.querySelector('#ss-hamburger');
+    const mobileNavigation = document.querySelector('.ss-mob-nav');
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        mobileNavigation.classList.toggle('active');
+    });
 </script>
 </body>
 </html>
