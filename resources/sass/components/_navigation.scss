@@ -83,8 +83,12 @@
     list-style: none;
     padding: 0 20px;
     margin: 0;
-    position: relative;
+    position: fixed;
+    top: 0;
     transition: all .4s ease-out;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
 
     &.active {
         height: 100vh;
@@ -138,7 +142,6 @@
 #ss-hamburger {
     width: 40px;
     height: 30px;
-    display: inline-flex;
     flex-direction: column;
     align-content: center;
     justify-content: space-evenly;
@@ -146,6 +149,11 @@
     top: 30px;
     right: 2rem;
     transform: translateY(-50%);
+    display: none;
+
+    @media screen and (max-width: 693px) {
+        display: inline-flex;
+    }
 
     span {
         width: 85%;
@@ -157,7 +165,7 @@
 
     &.active {
         & span:first-child {
-            transform: rotate(405deg) translate(6px, 5px);
+            transform: rotate(405deg) translate(7px, 5px);
             height: 2px;
             width: 50%;
         }

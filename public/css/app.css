@@ -52,7 +52,9 @@
 }
 .ss-hero .ss-hero-info {
   width: 55%;
-  height: 55%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   position: absolute;
   bottom: 5%;
   z-index: 2;
@@ -281,17 +283,33 @@
   width: 100vw;
   height: 60px;
   background-color: #196d9b;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   list-style: none;
   padding: 0 20px;
   margin: 0;
+  position: fixed;
+  top: 0;
+  transition: all 0.4s ease-out;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+}
+.ss-mob-nav.active {
+  height: 100vh;
+}
+.ss-mob-nav.active #logo {
+  align-self: start;
+  margin-top: 7.5px;
+}
+.ss-mob-nav.active .ss-mob-nav-items {
+  display: flex;
+  padding-left: 0;
 }
 .ss-mob-nav #logo {
   height: 45px;
   -o-object-fit: scale-down;
      object-fit: scale-down;
+  display: inline !important;
+  margin-top: 7.5px;
 }
 .ss-mob-nav .ss-mob-nav-items {
   display: flex;
@@ -303,6 +321,12 @@
 }
 @media screen and (max-width: 693px) {
   .ss-mob-nav .ss-mob-nav-items {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    gap: 20px;
     display: none;
   }
 }
@@ -313,6 +337,44 @@
   line-height: 20px;
   padding: 10px;
   text-decoration: none;
+}
+
+#ss-hamburger {
+  width: 40px;
+  height: 30px;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 30px;
+  right: 2rem;
+  transform: translateY(-50%);
+  display: none;
+}
+@media screen and (max-width: 693px) {
+  #ss-hamburger {
+    display: inline-flex;
+  }
+}
+#ss-hamburger span {
+  width: 85%;
+  margin: 0 auto;
+  height: 1px;
+  background-color: #fff;
+  transition: all 0.4s ease-out;
+}
+#ss-hamburger.active span:first-child {
+  transform: rotate(405deg) translate(7px, 5px);
+  height: 2px;
+  width: 50%;
+}
+#ss-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+#ss-hamburger.active span:last-child {
+  transform: rotate(-405deg) translate(6px, -4px);
+  height: 2px;
+  width: 50%;
 }
 
 * {
